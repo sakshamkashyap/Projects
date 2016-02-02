@@ -1,0 +1,65 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/customgrey"
+    tools:context="com.example.UpdateList" >
+
+    <Button
+        android:id="@+id/button_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:text="Update Profile" />
+
+    <EditText
+        android:id="@+id/issue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button_up"
+        android:layout_alignLeft="@+id/button_up"
+        android:layout_alignRight="@+id/button_up"
+        android:layout_marginBottom="19dp"
+        android:hint="Issue Date"
+        android:ems="10" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/book"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/returned"
+        android:layout_alignLeft="@+id/returned"
+        android:layout_alignRight="@+id/returned"
+        android:layout_marginBottom="45dp"
+        android:hint="Book name"
+        android:ems="10" />
+
+    <EditText
+        android:id="@+id/returned"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/issue"
+        android:layout_alignLeft="@+id/issue"
+        android:layout_alignRight="@+id/issue"
+        android:layout_marginBottom="42dp"
+        android:hint="Return Date"
+        android:ems="10" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/up" />
+    
+</RelativeLayout>
