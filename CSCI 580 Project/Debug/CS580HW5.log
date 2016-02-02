@@ -1,0 +1,142 @@
+﻿Build started 11/29/2015 4:58:35 PM.
+     1>Project "C:\Users\anupamsobti\Desktop\CSCI 580 project files\HW5\CS580HW5.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _VC80_UPGRADE=0x0600 /D _MBCS /D _AFXDLL /Gm /EHsc /RTC1 /MDd /GS /Gy- /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp".\Debug\CS580HW5.pch" /Fo".\Debug\\" /Fd".\Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Application5.cpp HeightMapMaker.cpp tex_fun.cpp
+         tex_fun.cpp
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\tex_fun.cpp(37): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(211) : see declaration of 'fopen'
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\tex_fun.cpp(42): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(230) : see declaration of 'fscanf'
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\tex_fun.cpp(51): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\tex_fun.cpp(52): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\tex_fun.cpp(53): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\tex_fun.cpp(33): warning C4101: 'j' : unreferenced local variable
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\tex_fun.cpp(158): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\tex_fun.cpp(159): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\tex_fun.cpp(172): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\tex_fun.cpp(190): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\tex_fun.cpp(191): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\tex_fun.cpp(196): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\tex_fun.cpp(197): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\tex_fun.cpp(202): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\tex_fun.cpp(203): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\tex_fun.cpp(208): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\tex_fun.cpp(268): warning C4244: 'return' : conversion from 'double' to 'float', possible loss of data
+         Generating Code...
+         Compiling...
+         Application5.cpp
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.h(78): warning C4042: 'data' : has bad storage class
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.h(84): warning C4042: 'data' : has bad storage class
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.h(85): warning C4042: 'mapData' : has bad storage class
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.h(85): warning C4042: 'imageData' : has bad storage class
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.h(86): warning C4042: 'data' : has bad storage class
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.h(87): warning C4042: 'data' : has bad storage class
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.h(88): warning C4042: 'data' : has bad storage class
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.h(89): warning C4042: 'data' : has bad storage class
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.h(90): warning C4042: 'data' : has bad storage class
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.h(91): warning C4042: 'data' : has bad storage class
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.h(92): warning C4042: 'data' : has bad storage class
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.h(97): warning C4042: 'data' : has bad storage class
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.h(100): warning C4042: 'data' : has bad storage class
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.h(100): warning C4042: 'modelData' : has bad storage class
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.h(103): warning C4042: 'modelData' : has bad storage class
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\application5.cpp(117): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\application5.cpp(125): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\application5.cpp(163): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\application5.cpp(166): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\application5.cpp(169): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\application5.cpp(170): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\application5.cpp(171): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\application5.cpp(62): warning C4101: 'shaderType' : unreferenced local variable
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\application5.cpp(262): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\application5.cpp(271): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(211) : see declaration of 'fopen'
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\application5.cpp(285): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\application5.cpp(295): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(211) : see declaration of 'fopen'
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\application5.cpp(312): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(230) : see declaration of 'fscanf'
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\application5.cpp(318): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(230) : see declaration of 'fscanf'
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\application5.cpp(324): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(230) : see declaration of 'fscanf'
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\application5.cpp(330): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(230) : see declaration of 'fscanf'
+         Generating Code...
+         Compiling...
+         HeightMapMaker.cpp
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.h(78): warning C4042: 'data' : has bad storage class
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.h(84): warning C4042: 'data' : has bad storage class
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.h(85): warning C4042: 'mapData' : has bad storage class
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.h(85): warning C4042: 'imageData' : has bad storage class
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.h(86): warning C4042: 'data' : has bad storage class
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.h(87): warning C4042: 'data' : has bad storage class
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.h(88): warning C4042: 'data' : has bad storage class
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.h(89): warning C4042: 'data' : has bad storage class
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.h(90): warning C4042: 'data' : has bad storage class
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.h(91): warning C4042: 'data' : has bad storage class
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.h(92): warning C4042: 'data' : has bad storage class
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.h(97): warning C4042: 'data' : has bad storage class
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.h(100): warning C4042: 'data' : has bad storage class
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.h(100): warning C4042: 'modelData' : has bad storage class
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.h(103): warning C4042: 'modelData' : has bad storage class
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.cpp(42): warning C4042: 'data' : has bad storage class
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.cpp(93): warning C4244: '-=' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.cpp(97): warning C4244: '+=' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.cpp(121): warning C4244: '-=' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.cpp(125): warning C4244: '+=' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.cpp(133): warning C4042: 'mapData' : has bad storage class
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.cpp(133): warning C4042: 'imageData' : has bad storage class
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.cpp(146): warning C4042: 'data' : has bad storage class
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.cpp(178): warning C4042: 'data' : has bad storage class
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.cpp(332): warning C4042: 'data' : has bad storage class
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.cpp(344): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.cpp(366): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.cpp(392): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.cpp(414): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.cpp(432): warning C4042: 'data' : has bad storage class
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.cpp(566): warning C4042: 'data' : has bad storage class
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.cpp(572): warning C4042: 'data' : has bad storage class
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.cpp(638): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.cpp(642): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.cpp(646): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.cpp(673): warning C4042: 'data' : has bad storage class
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.cpp(738): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.cpp(892): warning C4042: 'data' : has bad storage class
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.cpp(896): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.cpp(935): warning C4244: '=' : conversion from 'float' to 'BYTE', possible loss of data
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.cpp(936): warning C4244: '=' : conversion from 'float' to 'BYTE', possible loss of data
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.cpp(937): warning C4244: '=' : conversion from 'float' to 'BYTE', possible loss of data
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.cpp(962): warning C4042: 'data' : has bad storage class
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.cpp(962): warning C4042: 'modelData' : has bad storage class
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.cpp(981): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.cpp(984): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.cpp(1072): warning C4042: 'modelData' : has bad storage class
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.cpp(1075): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\anupamsobti\desktop\csci 580 project files\hw5\heightmapmaker.cpp(1084): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(211) : see declaration of 'fopen'
+         Generating Code...
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:".\Debug\CS580HW5.exe" /INCREMENTAL /NOLOGO /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /manifestinput:"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\Include\Manifest\dpiaware.manifest" /DEBUG /PDB:".\Debug\CS580HW5.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\Debug\CS580HW5.lib" /MACHINE:X86 /SAFESEH .\Debug\CS580HW.res
+         .\Debug\Application.obj
+         .\Debug\Application5.obj
+         .\Debug\CS580HW.obj
+         .\Debug\CS580HWDoc.obj
+         .\Debug\CS580HWView.obj
+         .\Debug\CustomizablePerlinNoise.obj
+         .\Debug\disp.obj
+         .\Debug\HeightMapMaker.obj
+         .\Debug\MainFrm.obj
+         .\Debug\rend.obj
+         .\Debug\RotateDlg.obj
+         .\Debug\ScaleDlg.obj
+         .\Debug\StdAfx.obj
+         .\Debug\tex_fun.obj
+         .\Debug\TranslateDlg.obj
+         .\Debug\WorleyNoise.obj
+         CS580HW5.vcxproj -> C:\Users\anupamsobti\Desktop\CSCI 580 project files\HW5\.\Debug\CS580HW5.exe
+     1>Done Building Project "C:\Users\anupamsobti\Desktop\CSCI 580 project files\HW5\CS580HW5.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:01.53
