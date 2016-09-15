@@ -1,0 +1,1075 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+     <title>Stock Search</title>   
+ <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://code.highcharts.com/stock/highstock.js"></script>
+<script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script src="https://cdnjs.cloudfare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.js"></script>
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js" type="text/javascript"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.js"></script>
+        
+        <style>
+            .panel-heading {
+     background-color: #ededed !important;
+}
+            body{
+                background: linear-gradient(to left, #1b5175, #346988, #1b5175);
+            }
+            #myform{
+                text-align: center;
+                padding-bottom: 50px;
+
+            }
+            .well{
+                
+                align-self: center;
+            }
+            
+            .full_container{
+                width: 70%;
+                text-align: center;
+                margin: 0 auto;
+            }
+            
+            ul.ui-autocomplete {
+            list-style: none;
+            }
+            #form_container{
+                background-color: white;
+                margin-top: 10px;
+            }
+            
+           .carousel{
+                background-color: ;
+            }
+         
+            h4{
+                margin-top: 10px;
+            }
+            
+            #txtCompany{
+                width: 30%;
+            }
+            #bttoggle{
+                padding-right: 1px;     
+            
+            }
+            
+            .table-striped{
+                text-align: left;
+                height: 20px;
+            }
+            #btnfb, #favbtn{
+                display:inline-block;
+                vertical-align:top;
+            }
+            #innertbfav{
+                margin:auto;
+                width: 100%;
+            }
+            #newfavstock td{
+                margin:auto;
+                padding: auto;
+                height: 30px;
+            }
+            #linksymbol{
+                color: #0645AD;
+                cursor: pointer;
+            }
+            #linksymbol:hover{
+                text-decoration: underline;
+            }
+            #colorset{
+                text-shadow: -1px 0 grey, 0 1px grey, 1px 0 grey, 0 -1px grey;
+            }
+            
+    </style>
+        
+        
+         <script>
+             
+             var flag = false;
+             var loadstatus;
+             var s_name,s_ytd,s_price,s_symbol,s_cap,s_cytd, supersymbol;
+             var localArray = new Array();
+             var cmpny="";
+             var stockCompany = $("#txtCompany").val();
+        function reset_form(){
+            document.getElementById("myform").reset();
+            $('.carousel').carousel(0);
+            $("#btnext").prop('disabled', true);
+            
+            //location.href="hw8_web.html";
+            //document.getElementById("tables").innerHTML = "";
+        }
+        
+             var m = new Array();
+              
+             var str;
+            // $.each(m, function('localjson', localArray){
+                  //  alert(localArray);
+                   // });
+             
+             function trash(x){
+              // alert("hi");
+                 var checkstatus = localStorage.getItem('localjson');
+                    localArray = JSON.parse(checkstatus);
+                 console.log(localArray.toString());
+                 var idofrow = String(x.closest('tr').getAttribute('data-companysymbol'));
+                 x.closest('tr').remove();
+                 if($("#symbol").html() == idofrow){
+                     $("#favbtn").css("color", "#ffffff");
+                 }
+                
+                    localArray = jQuery.grep(localArray, function(value){
+                                    return value != idofrow;
+                    });
+                 console.log(localArray.toString());
+                localStorage.localjson = JSON.stringify(localArray);
+                 console.log(localStorage.localjson);
+             };
+             
+             function execute(e){
+                       supersymbol = e.innerHTML;
+                 $("#colorset").css("color", "#FFF000");
+    $("#yahoograph").attr("src", "http://chart.finance.yahoo.com/t?s="+supersymbol+"&lang=en-US&width=400&height=300"); 
+      
+        $.ajax({
+      type: "GET",
+      dataType: "json",
+      url: 'http://app571.us-west-2.elasticbeanstalk.com/',
+      data: {txtCompany: supersymbol},
+      success: function(loadjson, status, jqXHR) {
+          
+          //var output = JSON.parse(loadjson);
+        //  cmpny = output.Name;
+          $("#name").html(loadjson.Name);
+          s_name = loadjson.Name;
+          
+        //  var symbol = output.Symbol;
+          $("#symbol").html(loadjson.Symbol);
+          s_symbol = loadjson.Symbol;
+          
+         // var LP = output.LastPrice;
+          $("#lastprice").html("$&nbsp;"+Math.round(loadjson.LastPrice*100)/100);
+          s_price = loadjson.LastPrice;
+          
+          
+          var change = Math.round(loadjson.Change*100)/100;
+          var changep = Math.round(loadjson.ChangePercent*100)/100;
+          s_ytd = loadjson.Change;
+          s_cytd = loadjson.ChangePercent;
+          
+          if(changep<0)
+                     {
+                        var actual="<p style=color:red;>"+change+"&nbsp;(&nbsp;"+changep+"%&nbsp;)&nbsp;<img src='http://cs-server.usc.edu:45678/hw/hw8/images/down.png' alt='Red Arrow' height='14' width='14'></p>";
+                     }
+                    else if(changep>0)
+                    {
+                        var actual="<p style=color:green;>"+change+"&nbsp;(&nbsp;"+changep+"%&nbsp;)&nbsp;<img src='http://cs-server.usc.edu:45678/hw/hw8/images/up.png' alt='Green Arrow' height='14' width='14'></p> ";
+                    }
+                    else        
+                    { 
+                           var actual=change+"&nbsp;(&nbsp;"+changep+"%&nbsp;)&nbsp;";
+                    } 
+          $("#change").html(actual);
+          
+          
+          $("#TD").html(loadjson.Timestamp);
+          
+          
+          var market = loadjson.MarketCap;
+                        if(market>=1000000000)
+                        {
+                        var market1=market/1000000000;    
+                        var marketactual=Math.round(market1*100)/100;    
+                        document.getElementById("cap").innerHTML=marketactual +"&nbsp;Billion";    
+                        }
+                        else if(market>=1000000)
+                        {
+                         var market1=market/1000000;    
+                        var marketactual=Math.round(market1*100)/100;    
+                        document.getElementById("cap").innerHTML=marketactual +"&nbsp;Million";      
+                        } 
+                        else
+                        {
+                         document.getElementById("cap").innerHTML=market;          
+                        }
+          
+          s_cap = loadjson.MarketCap;
+          //$("#cap").html(loadjson.MarketCap);
+          $("#volume").html(loadjson.Volume);
+          
+          var changeytd = Math.round(loadjson.ChangeYTD*100)/100;
+          var changepytd = Math.round(loadjson.ChangePercentYTD*100)/100;
+          
+          if(changepytd<0){
+                        var actual1="<p style=color:red;>"+changeytd+"&nbsp;(&nbsp;"+changepytd+"%&nbsp;)&nbsp;<img src='http://cs-server.usc.edu:45678/hw/hw8/images/down.png' alt='Red Arrow' height='14' width='14'> ";}
+                    else if(changepytd>0){
+                        var actual1="<p style=color:green;>"+changeytd+"&nbsp;(&nbsp;"+changepytd+"%&nbsp;)&nbsp;<img src='http://cs-server.usc.edu:45678/hw/hw8/images/up.png' alt='Green Arrow' height='14' width='14'></p> ";}
+                    else        
+                       { 
+                           var actual1=changeytd+"&nbsp;(&nbsp;"+changepytd+"%&nbsp;)&nbsp;";
+                       } 
+                        document.getElementById("ytd").innerHTML=actual1;
+          
+          //$("#ytd").html(loadjson.ChangeYTD);
+          $("#high").html("$&nbsp;"+Math.round(loadjson.High*100)/100);
+          $("#low").html("$&nbsp;"+Math.round(loadjson.Low*100)/100);
+          $("#opening").html("$&nbsp;"+Math.round(loadjson.Open*100)/100);
+          
+          var testDate = loadjson.Timestamp;
+          var newdate = moment(testDate).format('DD MMMM YYYY, h:mm:ss a');
+          $("#TD").html(newdate);
+        
+      },
+  error: function (jqXHR, status, err) {
+    //alert("Local error callback. 3" + status +err);
+  },
+  complete: function (jqXHR, status) {
+   // alert("Local completion callback.");
+  }
+      });  
+           $.ajax({
+             type: "GET",
+              dataType: "json",
+               url: 'http://app571.us-west-2.elasticbeanstalk.com/',
+              data: {bingajax:  supersymbol },
+              success: function(bingsearch){
+                  
+                  var bingarray = bingsearch.d.results;
+                  for( var i = 0; i< bingarray.length; i++){
+                  $("#news").append("<div class=\"well\" width=\"100%\" align=\"left\"><p><a href="+bingarray[i].Url+" target=_blank>"+bingarray[i].Title+"</a></p><br><p>"+bingarray[i].Description+"</p><p><strong>Publisher: "+bingarray[i].Source+"</strong></p><p><strong>Date: "+moment(bingarray[i].Date).format('Do MMMM YYYY, h:mm:ss')+"<strong></p></div><br>");
+                  }
+              },
+              error: function (jqXHR, status, err) {
+    //alert("Local error bing" + status +err);
+              }
+          });
+           
+           $.ajax({
+             type: "GET",
+              dataType: "json",
+               url: 'http://app571.us-west-2.elasticbeanstalk.com/',
+              data: {newchart:  supersymbol },
+              success: function(chartAPI){
+                  //var showchart = JSON.parse(JSON.stringify(chartAPI));
+                  var dates = chartAPI.Dates;
+                  var elements = chartAPI.Elements;
+                  var historychart = [];
+                  
+                  function data1(dateIn){
+                      var date2 = new Date(dateIn);
+                      return Date.UTC(date2.getFullYear(),date2.getMonth(),date2.getDate());
+                  };
+                  
+                  for(var i=0;i< dates.length;i++){
+                      var date1 = data1(dates[i]);
+                      var pointData = [date1,elements[0].DataSeries['open'].values[i],elements[0].DataSeries['high'].values[i],elements[0].DataSeries['low'].values[i],elements[0].DataSeries['close'].values[i]];
+                      historychart.push(pointData);
+                  }
+                  
+                  var groupingUnits =[['week',[1]],['month',[1, 2, 3, 4, 6]]];
+                  $('#chart').highcharts('StockChart', {
+                      rangeSelector: {
+                          buttons: [{
+                              type: 'week',
+                              count: 1,
+                              text: '1w'
+                          },{
+                              type: 'month',
+                              count: 1,
+                              text: '1m'
+                          },{
+                              type: 'month',
+                              count: 3,
+                              text: '3m'
+                          },{
+                              type: 'month',
+                              count: 6,
+                              text: '6m'
+                          },{
+                              type: 'ytd',
+                              text: 'YTD'
+                          },{
+                              type: 'year',
+                              count: 1,
+                              text: '1y'
+                          },{
+                              type: 'all',
+                              text: 'ALL'
+                              
+                          }],
+                        selected: 0,
+                        inputEnabled: false
+                      },
+                      title: {
+                        text: elements[0].Symbol + ' Stock Value',
+                        align: 'center'
+                      },
+        
+                      yAxis: [{
+                          title:{
+                              text: 'Stock Value'
+                          },
+                          height: 200,
+                          linewidth: 2
+                      }],
+                      series: [{
+                          type: 'area',
+                          name: elements[0].Symbol,
+                          data: historychart,
+						  threshold: null,
+                          tooltip: {
+                              valueDecimals : 2,
+                              valuePrefix: '$'
+                      },
+                         fillColor : {
+						 linearGradient: {
+						 x1: 0,
+						 y1: 0,
+						 x2: 0,
+						 y2: 1
+                          },
+						  stops: [
+						  [0, Highcharts.getOptions().colors[0]],
+						  [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+						  ]
+						  }
+                      }],
+                      navigation: {
+                          buttonOptions:{
+                              enabled:false
+                          }
+                      }
+         
+                  });
+                  $("#chart").highcharts().reflow();
+                  //document.getElementById("chart").innerHTML = showchart;               
+},
+              error: function (jqXHR, status, err) {
+    //alert("Local error chart " + status +err);
+              }
+          });
+    $('.carousel').carousel(1);
+    return false;
+};
+
+   $(document).ready(function(){
+       $('.carousel').carousel({
+    pause: true,
+    interval: false
+});
+       //localStorage.clear();
+       
+       
+       $("#btnext").click(function(){
+           //if(loadstatus == "SUCCESS"){
+          $("#myCarousel").carousel("next");
+          // }
+       });
+       
+       $("#btpre").click(function(){
+         //  if(loadstatus == "SUCCESS"){
+          $("#myCarousel").carousel("prev");
+          // }
+       });
+       
+       $("#favbtn").click(function(){
+           //localStorage.setItem('localjson', $("#txtCompany").val());
+            //var localData = JSON.parse(localStorage.getItem('localjson'));
+            
+           var yourwish = $("#symbol").html();
+                if($.inArray(yourwish, localArray)> -1){
+                    $("#colorset").css("color", "#ffffff");
+                    localArray = jQuery.grep(localArray, function(value){
+                                    return value != yourwish;
+                        
+                                    });
+                localStorage.localjson = JSON.stringify(localArray);
+                $('tr[data-companysymbol="'+yourwish+'"]').remove();
+                
+            }else{
+          $("#colorset").css("color", "#FFF000");
+           localArray.push(yourwish);
+           str = JSON.stringify(localArray);
+            var changeytd = Math.round(s_ytd*100)/100;
+          var changepytd = Math.round(s_cytd*100)/100;
+          
+          if(changepytd<0){
+                        var actual1="<p style=color:red;>"+changeytd+"&nbsp;(&nbsp;"+changepytd+"%&nbsp;)&nbsp;<img src='http://cs-server.usc.edu:45678/hw/hw8/images/down.png' alt='Red Arrow' height='14' width='14'> ";}
+                    else if(changepytd>0){
+                        var actual1="<p style=color:green;>"+changeytd+"&nbsp;(&nbsp;"+changepytd+"%&nbsp;)&nbsp;<img src='http://cs-server.usc.edu:45678/hw/hw8/images/up.png' alt='Green Arrow' height='14' width='14'></p> ";}
+                    else        
+                       { 
+                           var actual1=changeytd+"&nbsp;(&nbsp;"+changepytd+"%&nbsp;)&nbsp;";
+                       } 
+                        //document.getElementById("ytd").innerHTML=actual1;
+                           //$("#lastprice").html("$&nbsp;"+Math.round(loadjson.LastPrice*100)/100);
+                      // $('tr[data-companysymbol="'+locallist.Symbol+'"]').children()[2].innerHTML = "$&nbsp;"+Math.round(locallist.LastPrice*100)/100;
+                          // $('tr[data-companysymbol="'+locallist.Symbol+'"]').children()[3].innerHTML = actual1;
+                           
+                           var market = s_cap;
+                        if(market>=1000000000)
+                        {
+                        var market1=market/1000000000;    
+                        var marketactual=Math.round(market1*100)/100;    
+                        var r_market=marketactual +"&nbsp;Billion";    
+                        }
+                        else if(market>=1000000)
+                        {
+                         var market1=market/1000000;    
+                        var marketactual=Math.round(market1*100)/100;    
+                        r_market=marketactual +"&nbsp;Million";      
+                        } 
+                        else
+                        {
+                         r_market=market;          
+                        }
+     
+                  $("#newfavstock").append("<tr data-companysymbol='"+s_symbol+"'><td><span id=\"linksymbol\" onclick=\"execute(this)\">"+s_symbol+"</span></td><td>"+s_name+"</td><td>$ "+Math.round(s_price*100)/100+"</td><td>"+actual1+"</td><td>"+r_market+"</td><td><button class=\"btn btn-default btn-sm\" id=\"btntrash\" onclick=\"trash(this)\"><span class=\"glyphicon glyphicon-trash\"></button></span></td></tr>");
+                //$("#newfavstock").append("<tr data-companysymbol='"+s_symbol+"'>");
+                  localStorage.setItem('localjson',str);
+           console.log("Local Array "+localArray);
+           console.log("Storage: "+localStorage);
+            }
+       });
+       
+        if(localStorage.getItem('localjson') === null){
+        console.log("No local Storage");   
+       }
+       
+       else{
+           //localArray.push(JSON.stringify(str));
+          // JSON.stringify(localArray);
+           m = JSON.parse(localStorage.getItem('localjson'));
+          // localArray.push(m);
+          // alert(localArray.length);
+           //alert(localArray[1]);
+          // var arr = JSON.parse(localStorage.getItem('localjson'));
+        //alert(m.length);
+       /* for(var i=0;i<m.length;i++){
+       $.ajax({
+             type: "GET",
+              dataType: "json",
+               url: 'http://app571.us-west-2.elasticbeanstalk.com/',
+              data: {localcompany:  m[i]},
+              success: function(locallist){
+                  $("#newfavstock").append("<tr><td>"+locallist.Symbol+"</td><td>"+locallist.Name+"</td><td>"+locallist.LastPrice+"</td><td>"+locallist.ChangeYTD+"</td><td>"+locallist.MarketCap+"</td></tr>");
+              }
+              });
+            localArray.push(m[i]);
+            //console.log(m[i]);
+            }*/
+           
+           looper = $.Deferred().resolve();
+          // for(var i=0;i<m.length;i++){
+           $.each(m, function(i, data){
+               looper = looper.then(function(){
+                   return $.ajax({
+                       type: "GET",
+              dataType: "json",
+               url: 'http://app571.us-west-2.elasticbeanstalk.com/',
+                       data: {localcompany: m[i]}
+                   }).done(function(locallist){
+                       
+                       var change = Math.round(locallist.Change*100)/100;
+          var changep = Math.round(locallist.ChangePercent*100)/100;
+         // s_ytd = loadjson.Change;
+         // s_cytd = loadjson.ChangePercent;
+          
+          if(changep<0)
+                     {
+                        var actual="<p style=color:red;>"+change+"&nbsp;(&nbsp;"+changep+"%&nbsp;)&nbsp;<img src='http://cs-server.usc.edu:45678/hw/hw8/images/down.png' alt='Red Arrow' height='14' width='14'></p>";
+                     }
+                    else if(changep>0)
+                    {
+                        var actual="<p style=color:green;>"+change+"&nbsp;(&nbsp;"+changep+"%&nbsp;)&nbsp;<img src='http://cs-server.usc.edu:45678/hw/hw8/images/up.png' alt='Green Arrow' height='14' width='14'></p> ";
+                    }
+                    else        
+                    { 
+                           var actual=change+"&nbsp;(&nbsp;"+changep+"%&nbsp;)&nbsp;";
+                    } 
+                        //document.getElementById("ytd").innerHTML=actual1;
+                           //$("#lastprice").html("$&nbsp;"+Math.round(loadjson.LastPrice*100)/100);
+                      // $('tr[data-companysymbol="'+locallist.Symbol+'"]').children()[2].innerHTML = "$&nbsp;"+Math.round(locallist.LastPrice*100)/100;
+                          // $('tr[data-companysymbol="'+locallist.Symbol+'"]').children()[3].innerHTML = actual1;
+                           
+                           var market = locallist.MarketCap;
+                        if(market>=1000000000)
+                        {
+                        var market1=market/1000000000;    
+                        var marketactual=Math.round(market1*100)/100;    
+                        var r_market=marketactual +"&nbsp;Billion";    
+                        }
+                        else if(market>=1000000)
+                        {
+                         var market1=market/1000000;    
+                        var marketactual=Math.round(market1*100)/100;    
+                        r_market=marketactual +"&nbsp;Million";      
+                        } 
+                        else
+                        {
+                         r_market=market;          
+                        }
+                       
+                           $("#newfavstock").append("<tr data-companysymbol='"+locallist.Symbol+"'><td><span id=\"linksymbol\" onclick=\"execute(this)\">"+locallist.Symbol+"</span></td><td>"+locallist.Name+"</td><td>"+"$&nbsp;"+Math.round(locallist.LastPrice*100)/100+"</td><td>"+actual+"</td><td>"+r_market+"</td><td><button class=\"btn btn-default btn-sm\" id=\"btntrash\" onclick=\"trash(this)\"><span class=\"glyphicon glyphicon-trash\"></button></span></td></tr>"); 
+                       
+                   });
+               });
+           });
+           for(var i=0;i<m.length;i++){
+               localArray.push(m[i]);
+           }
+           
+       }//else ends   
+       $("#txtCompany").autocomplete({
+           source: function(request, response){
+               $.ajax({
+      dataType: "json",
+      url: 'http://app571.us-west-2.elasticbeanstalk.com/',
+      data: request,
+      success: function(data) {
+        response(data.map(function(value){
+            return{
+                'label' : value.label,
+                'value' : value.value
+            };
+        }));
+        
+      }
+                   });
+           },
+    minlength: 1,
+    select: function(event,ui){  
+        cmpny = ui.item.value;
+        flag = true;
+        $("#invalid").html("");
+       }
+           });
+    
+       
+       
+       $("#btnrefresh").click(function(){
+           var stringarray = localStorage.getItem("localjson");
+           if(stringarray){
+               var newm = JSON.parse(stringarray);
+               for (var i =0;i<newm.length;i++){
+                   $.ajax({
+                      url: 'http://app571.us-west-2.elasticbeanstalk.com/',
+                    type: 'GET',
+                       dataType: 'json',
+                       data: {txtCompany: newm[i]},
+                       success: function(refreshed){
+                           //alert(refreshed.Symbol);
+                           $('tr[data-companysymbol="'+refreshed.Symbol+'"]').children()[1].innerHTML = refreshed.Name;
+                           var change = Math.round(refreshed.Change*100)/100;
+          var changep = Math.round(refreshed.ChangePercent*100)/100;
+          
+          if(changep<0)
+                     {
+                        var actual="<p style=color:red;>"+change+"&nbsp;(&nbsp;"+changep+"%&nbsp;)&nbsp;<img src='http://cs-server.usc.edu:45678/hw/hw8/images/down.png' alt='Red Arrow' height='14' width='14'></p>";
+                     }
+                    else if(changep>0)
+                    {
+                        var actual="<p style=color:green;>"+change+"&nbsp;(&nbsp;"+changep+"%&nbsp;)&nbsp;<img src='http://cs-server.usc.edu:45678/hw/hw8/images/up.png' alt='Green Arrow' height='14' width='14'></p> ";
+                    }
+                    else        
+                    { 
+                           var actual=change+"&nbsp;(&nbsp;"+changep+"%&nbsp;)&nbsp;";
+                    } 
+                        //document.getElementById("ytd").innerHTML=actual1;
+                           //$("#lastprice").html("$&nbsp;"+Math.round(loadjson.LastPrice*100)/100);
+                       $('tr[data-companysymbol="'+refreshed.Symbol+'"]').children()[2].innerHTML = "$&nbsp;"+Math.round(refreshed.LastPrice*100)/100;
+                           $('tr[data-companysymbol="'+refreshed.Symbol+'"]').children()[3].innerHTML = actual;
+                           
+                           var market = refreshed.MarketCap;
+                        if(market>=1000000000)
+                        {
+                        var market1=market/1000000000;    
+                        var marketactual=Math.round(market1*100)/100;    
+                        $('tr[data-companysymbol="'+refreshed.Symbol+'"]').children()[4].innerHTML =marketactual +"&nbsp;Billion";    
+                        }
+                        else if(market>=1000000)
+                        {
+                         var market1=market/1000000;    
+                        var marketactual=Math.round(market1*100)/100;    
+                        $('tr[data-companysymbol="'+refreshed.Symbol+'"]').children()[4].innerHTML =marketactual +"&nbsp;Million";      
+                        } 
+                        else
+                        {
+                         $('tr[data-companysymbol="'+refreshed.Symbol+'"]').children()[4].innerHTML = market;          
+                        }
+                           
+                           //console.log("HI");
+                           
+                   }
+                   });
+               }
+           }else{
+               localstorage.localjson = "";
+               localArray = [];
+           }
+       });
+       
+       $("#autorefresh").prop('checked', false).change();
+       
+       $("#autorefresh").change(function(){
+           if($(this).prop('checked'))
+               {
+                   load = setInterval(function(){
+           var stringarray = localStorage.getItem("localjson");
+           if(stringarray){
+               var newm = JSON.parse(stringarray);
+               for (var i =0;i<newm.length;i++){
+                   $.ajax({
+                      url: 'http://app571.us-west-2.elasticbeanstalk.com/',
+                    type: 'GET',
+                       dataType: 'json',
+                       data: {txtCompany: newm[i]},
+                       success: function(refreshed){
+                           //alert(refreshed.Symbol);
+                       $('tr[data-companysymbol="'+refreshed.Symbol+'"]').children()[2].innerHTML = "$ "+refreshed.LastPrice;
+                           
+                           var change = Math.round(refreshed.Change*100)/100;
+          var changep = Math.round(refreshed.ChangePercent*100)/100;
+          //s_ytd = loadjson.Change;
+          //s_cytd = loadjson.ChangePercent;
+          
+          if(changep<0)
+                     {
+                        var actual="<p style=color:red;>"+change+"&nbsp;(&nbsp;"+changep+"%&nbsp;)&nbsp;<img src='http://cs-server.usc.edu:45678/hw/hw8/images/down.png' alt='Red Arrow' height='14' width='14'></p>";
+                     }
+                    else if(changep>0)
+                    {
+                        var actual="<p style=color:green;>"+change+"&nbsp;(&nbsp;"+changep+"%&nbsp;)&nbsp;<img src='http://cs-server.usc.edu:45678/hw/hw8/images/up.png' alt='Green Arrow' height='14' width='14'></p> ";
+                    }
+                    else        
+                    { 
+                           var actual=change+"&nbsp;(&nbsp;"+changep+"%&nbsp;)&nbsp;";
+                    } 
+                           $('tr[data-companysymbol="'+refreshed.Symbol+'"]').children()[3].innerHTML = actual;
+                           //console.log("HI");
+                           
+                   }
+                   });
+               }
+           }else{
+               localstorage.localjson = "";
+               localArray = [];
+           }
+                   },5000);
+                   }else{
+                        clearInterval(load);              
+                                      }
+       });
+       
+        
+       
+       $("#search_button").click(function(){
+           
+                
+           if($("#txtCompany").val()==""){
+               $("#tooltip").click();
+           }else{
+           if (flag == false){
+               $("#invalid").html("Select a valid entry");
+           }else{
+               $("#invalid").html("");
+            var companyname = cmpny; 
+           var resultElement = $("#innertbfav");
+         // var values = $(this).serialize(); 
+           $("#yahoograph").attr("src", "http://chart.finance.yahoo.com/t?s="+$("#txtCompany").val()+"&lang=en-US&width=400&height=300"); 
+      
+        $.ajax({
+      type: "GET",
+      dataType: "json",
+      url: 'http://app571.us-west-2.elasticbeanstalk.com/',
+      data: {txtCompany: $("#txtCompany").val()},
+      success: function(loadjson, status, jqXHR) {
+          
+          if(loadjson.Status == "SUCCESS"){
+               $("#btnext").prop('disabled', false);
+            
+              if($.inArray(loadjson.Symbol, localArray ) >-1){
+                
+                    $("#colorset").css("color", "#FFF000");
+                }else{
+                    $("#colorset").css("color", "#ffffff");
+                }
+          //var output = JSON.parse(loadjson);
+        //  cmpny = output.Name;
+              loadstatus = loadjson.Status;
+          $("#name").html(loadjson.Name);
+          s_name = loadjson.Name;
+          
+        //  var symbol = output.Symbol;
+          $("#symbol").html(loadjson.Symbol);
+          s_symbol = loadjson.Symbol;
+          
+         // var LP = output.LastPrice;
+          $("#lastprice").html("$&nbsp;"+Math.round(loadjson.LastPrice*100)/100);
+          s_price = loadjson.LastPrice;
+          
+          
+          var change = Math.round(loadjson.Change*100)/100;
+          var changep = Math.round(loadjson.ChangePercent*100)/100;
+          s_ytd = change;
+          s_cytd = changep;
+          
+          if(changep<0)
+                     {
+                        var actual="<p style=color:red;>"+change+"&nbsp;(&nbsp;"+changep+"%&nbsp;)&nbsp;<img src='http://cs-server.usc.edu:45678/hw/hw8/images/down.png' alt='Red Arrow' height='14' width='14'></p>";
+                     }
+                    else if(changep>0)
+                    {
+                        var actual="<p style=color:green;>"+change+"&nbsp;(&nbsp;"+changep+"%&nbsp;)&nbsp;<img src='http://cs-server.usc.edu:45678/hw/hw8/images/up.png' alt='Green Arrow' height='14' width='14'></p> ";
+                    }
+                    else        
+                    { 
+                           var actual=change+"&nbsp;(&nbsp;"+changep+"%&nbsp;)&nbsp;";
+                    } 
+          $("#change").html(actual);
+          
+          
+          $("#TD").html(loadjson.Timestamp);
+          
+          
+          var market = loadjson.MarketCap;
+                        if(market>=1000000000)
+                        {
+                        var market1=market/1000000000;    
+                        var marketactual=Math.round(market1*100)/100;    
+                        document.getElementById("cap").innerHTML=marketactual +"&nbsp;Billion";    
+                        }
+                        else if(market>=1000000)
+                        {
+                         var market1=market/1000000;    
+                        var marketactual=Math.round(market1*100)/100;    
+                        document.getElementById("cap").innerHTML=marketactual +"&nbsp;Million";      
+                        } 
+                        else
+                        {
+                         document.getElementById("cap").innerHTML=market;          
+                        }
+          
+          s_cap = loadjson.MarketCap;
+          //$("#cap").html(loadjson.MarketCap);
+          $("#volume").html(loadjson.Volume);
+          
+          var changeytd = Math.round(loadjson.ChangeYTD*100)/100;
+          var changepytd = Math.round(loadjson.ChangePercentYTD*100)/100;
+          
+          if(changepytd<0){
+                        var actual1="<p style=color:red;>"+changeytd+"&nbsp;(&nbsp;"+changepytd+"%&nbsp;)&nbsp;<img src='http://cs-server.usc.edu:45678/hw/hw8/images/down.png' alt='Red Arrow' height='14' width='14'> ";}
+                    else if(changepytd>0){
+                        var actual1="<p style=color:green;>"+changeytd+"&nbsp;(&nbsp;"+changepytd+"%&nbsp;)&nbsp;<img src='http://cs-server.usc.edu:45678/hw/hw8/images/up.png' alt='Green Arrow' height='14' width='14'></p> ";}
+                    else        
+                       { 
+                           var actual1=changeytd+"&nbsp;(&nbsp;"+changepytd+"%&nbsp;)&nbsp;";
+                       } 
+                        document.getElementById("ytd").innerHTML=actual1;
+          
+          //$("#ytd").html(loadjson.ChangeYTD);
+          $("#high").html("$&nbsp;"+Math.round(loadjson.High*100)/100);
+          $("#low").html("$&nbsp;"+Math.round(loadjson.Low*100)/100);
+          $("#opening").html("$&nbsp;"+Math.round(loadjson.Open*100)/100);
+          
+          var testDate = loadjson.Timestamp;
+          var newdate = moment(testDate).format('DD MMMM YYYY, h:mm:ss a');
+          $("#TD").html(newdate);
+          $('.carousel').carousel(1);
+        
+      }
+          else{
+              $("#invalid").html("No stock details available");
+          }
+      }
+      });
+           }
+           $.ajax({
+             type: "GET",
+              dataType: "json",
+               url: 'http://app571.us-west-2.elasticbeanstalk.com/',
+              data: {bingajax:  $("#txtCompany").val() },
+              success: function(bingsearch){
+                  
+                  var bingarray = bingsearch.d.results;
+                  $("#news").html("<div>");
+                  for( var i = 0; i< bingarray.length; i++){
+                  $("#news").append("<div class=\"well\" width=\"100%\" align=\"left\"><p><a href="+bingarray[i].Url+" target=_blank>"+bingarray[i].Title+"</a></p><br><p>"+bingarray[i].Description+"</p><p><strong>Publisher: "+bingarray[i].Source+"</strong></p><p><strong>Date: "+moment(bingarray[i].Date).format('Do MMMM YYYY, h:mm:ss')+"<strong></p></div><br>");
+                      
+                  }
+                  $("#news").append("</div>");
+              },
+              error: function (jqXHR, status, err) {
+   // alert("Local error bing" + status +err);
+              }
+          });
+           
+           $.ajax({
+             type: "GET",
+              dataType: "json",
+               url: 'http://app571.us-west-2.elasticbeanstalk.com/',
+              data: {newchart:  $("#txtCompany").val() },
+              success: function(chartAPI){
+                  //var showchart = JSON.parse(JSON.stringify(chartAPI));
+                  var dates = chartAPI.Dates;
+                  var elements = chartAPI.Elements;
+                  var historychart = [];
+                  
+                  function data1(dateIn){
+                      var date2 = new Date(dateIn);
+                      return Date.UTC(date2.getFullYear(),date2.getMonth(),date2.getDate());
+                  };
+                  
+                  for(var i=0;i< dates.length;i++){
+                      var date1 = data1(dates[i]);
+                      var pointData = [date1,elements[0].DataSeries['open'].values[i],elements[0].DataSeries['high'].values[i],elements[0].DataSeries['low'].values[i],elements[0].DataSeries['close'].values[i]];
+                      historychart.push(pointData);
+                  }
+                  
+                  var groupingUnits =[['week',[1]],['month',[1, 2, 3, 4, 6]]];
+                  $('#chart').highcharts('StockChart', {
+                      rangeSelector: {
+                          buttons: [{
+                              type: 'week',
+                              count: 1,
+                              text: '1w'
+                          },{
+                              type: 'month',
+                              count: 1,
+                              text: '1m'
+                          },{
+                              type: 'month',
+                              count: 3,
+                              text: '3m'
+                          },{
+                              type: 'month',
+                              count: 6,
+                              text: '6m'
+                          },{
+                              type: 'ytd',
+                              text: 'YTD'
+                          },{
+                              type: 'year',
+                              count: 1,
+                              text: '1y'
+                          },{
+                              type: 'all',
+                              count:1,
+                              text: 'ALL'
+                              
+                          }],
+                        selected: 0,
+                        inputEnabled: false
+                      },
+                      title: {
+                        text: elements[0].Symbol + ' Stock Value',
+                          align: 'center'
+                      },
+        
+                      yAxis: [{
+                          title:{
+                              text: 'Stock Value'
+                          },
+                          height: 200,
+                          linewidth: 2
+                      }],
+                      series: [{
+                          type: 'area',
+                          name: elements[0].Symbol,
+                          data: historychart,
+						  threshold: null,
+                          tooltip: {
+                              valueDecimals : 2,
+                              valuePrefix: '$'
+                      },
+                         fillColor : {
+						 linearGradient: {
+						 x1: 0,
+						 y1: 0,
+						 x2: 0,
+						 y2: 1
+                          },
+						  stops: [
+						  [0, Highcharts.getOptions().colors[0]],
+						  [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+						  ]
+						  }
+                      }],
+                      navigation: {
+                          buttonOptions:{
+                              enabled:false
+                          }
+                      }
+         
+                  });
+                  //$("#chart").highcharts.reflow();
+				  },
+                  //document.getElementById("chart").innerHTML = showchart;               
+              error: function (jqXHR, status, err) {
+    //alert("Local error chart " + status +err);
+              }
+          });
+    return false;
+           }
+    });
+       $('#share_button').click(function(e){
+e.preventDefault();
+FB.ui(
+{
+method: 'feed',
+name: 'Current Stock Price of '+s_name+' is $ '+s_price,
+link: ' http://dev.markitondemand.com/MODApis/',
+picture: 'http://chart.finance.yahoo.com/t?s='+s_symbol+'&lang=en-US&width=120&height=120',
+caption: 'Last Traded Price: $'+s_price+', Change '+s_ytd+' ('+s_cytd+'%)',
+description: 'Stock Information of '+s_name+' ('+s_symbol+')',
+message: ''
+},
+                function(response){
+                    if(response && response.post_id)
+                        {
+                            alert("Posted successfully");
+                        }else{
+                            alert("Not Posted");
+                        }
+                });
+});
+        
+     window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '1744751125811759',
+      xfbml      : true,
+      version    : 'v2.5'
+    });
+  }; 
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+   });
+    </script>
+    </head>
+<body>
+    
+  
+  
+<div class="full_container" align="center"><div id="form_container row" class="well" style="margin-top:10px;padding-bottom:40px">
+    <h4><strong>Stock Market Search</strong></h4><form class="form-inline" method="GET" accept-charset="utf-8" id="myform" role="form">
+    <div class="col-lg-3 col-md-3 col-sm-3"><label>Enter the Stock name or symbol:<span style="color:red">*</span> </label></div>
+    <div class="col-lg-6 col-md-6 col-sm-6" ><input type="text" name="txtCompany" id="txtCompany" class="col-lg-3 form-control" data-toggle="tooltip" title="Please enter a stock" placeholder="Apple Inc or AAPL" style="width:100%" required>
+    <input type="submit" style="display:none" name="tooltip" id="tooltip"></div>
+  <div class="col-lg-3 col-md-3 col-sm-3"><button type="button" name="submit" id="search_button" class="btn btn-primary"/><span class="glyphicon glyphicon-search"></span>Get Quote</button>
+    <button type="button" type="reset" name="reset_button" onclick="reset_form()" class="btn btn-default"/><span class="glyphicon glyphicon-refresh"></span>Clear</button></br></br></div>
+    <div class="col-lg-3 col-md-3 col-sm-3"></div><div class="col-lg-6 col-md-6 col-sm-6" id="invalid" style="color:red" align="left"></div>
+    <div align="right" class="col-lg-3 col-md-3 col-sm-3"><strong>Powered By: </strong><a href="http://dev.markitondemand.com/MODApis/" target="_blank"><img src="http://cs-server.usc.edu:45678/hw/hw8/images/mod-logo.png" width="50%" height="50%"></a></div>
+</form></div><hr>
+    
+    <div id="containertwo">
+        <div id="myCarousel" class="carousel slide well" data-ride="carousel">
+            
+            <div class="carousel-inner" role="listbox">
+            <div class="item active">
+    <div id="fav_panel" class="panel panel-default">
+        <div class="panel-heading" align="right"><span style="float:left;font-weight:bold">Favourite List</span>    
+    <label class="hidden-xs hidden-sm">Automatic Refresh:</label> 
+            <input type="checkbox" checked data-toggle="toggle" data-size="small" align="right" id="autorefresh">
+            
+            <button class="btn btn-default btn-sm" id="btnrefresh" data-toggle="tooltip" title="Click to refresh"><span class="glyphicon glyphicon-refresh">
+                </button></span>
+            
+            <button class="btn btn-default btn-sm" type="button" id="btnext" data-toggle="tooltip" title="Click to view stock information"><span class="glyphicon glyphicon-chevron-right"></span></a></div>
+        <div class="panel-body"><div class="table-responsive"><table id="innertbfav" class="table table-striped" >
+            <thead><tr style="height:30px"><th>Symbol</th>
+                <th>Company Name</th>
+                <th>Stock Price</th>
+                <th>Change (Change Percent)</th>
+                <th>Market Cap</th>
+                <th> </th></tr></thead>
+            <tbody id="newfavstock">
+            </tbody>
+            </table></div></div>
+            
+        </div></div>
+                
+                <!--STOCK DETAILS PAGE-->
+            <div class="item">
+            <div id="fav_panel" class="panel panel-default">
+                <div class="panel-heading">Stock Table<button class="btn btn-default btn-sm pull-left" type="button" id="btpre">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+    
+  </a></div>
+                <div class="panel-body">
+                    <div id="tab_select" class="row">
+                    <ul class="nav nav-pills">
+                          <li class="active"><a data-toggle="pill" href="#home_tab"><div class="hidden-sm hidden-xs visible-lg visible-md"><span class="glyphicon glyphicon-dashboard"></span> Current Stock</div><div class="hidden-md hidden-lg visible-sm visible-xs"><span class="glyphicon glyphicon-dashboard"></span>Stocks</div></a></li>
+                          <li><a data-toggle="pill" href="#chart"><div class="hidden-sm hidden-xs visible-lg visible-md"><span class="glyphicon glyphicon-stats"></span> Historical Charts</div><div class="hidden-md hidden-lg visible-sm visible-xs"><span class="glyphicon glyphicon-stats"></span>Charts</div></a></li>
+                          <li><a data-toggle="pill" href="#news"><div class="hidden-sm hidden-xs visible-lg visible-md"><span class="glyphicon glyphicon-link"></span> News Feeds</div><div class="hidden-md hidden-lg visible-sm visible-xs"><span class="glyphicon glyphicon-link"></span>News</div></a></li>
+                        </ul>
+                        </div><hr>
+                    <div id="below_tabs" class="tab-content">
+                        
+                        
+                        <div id="home_tab" class="tab-pane fade in active">
+                            <div class="row">
+                            <div id="tbtitle" class="pull-left">Stock Details</div>
+                            <div id="fbstar" align="right">
+                                <input type="image" src="https://www.facebookbrand.com/img/fb-art.jpg" id="share_button" width="30px" height="29px" id="btnfb"/> <button class="btn btn-default btn-sm" id="favbtn"/><span class="glyphicon glyphicon-star" style="font-size=200%" id="colorset"></span></div></div>
+                        <table class="table-striped col-lg-6 col-md-6 col-sm-6 tbcells" id="stocktable">
+        
+        <tr align="left" style="height:40px"><td style="font-weight:bold">Name</td><td id="name" ></td></tr>
+        <tr align="left" style="height:40px"><td style="font-weight:bold">Symbol</td><td id="symbol" ></td></tr>
+        <tr align="left" style="height:40px"><td style="font-weight:bold">Last Price</td><td id="lastprice"></td></tr>
+        <tr align="left" style="height:40px"><td style="font-weight:bold">Change (Change Percent)</td><td id="change"></td></tr>
+        <tr align="left" style="height:40px"><td style="font-weight:bold">Time and Date</td><td id="TD" ></td></tr>
+        <tr align="left" style="height:40px"><td style="font-weight:bold">Market Cap</td><td id="cap" ></td></tr>
+        <tr align="left" style="height:40px"><td style="font-weight:bold">Volume</td><td id="volume" ></td></tr>
+        <tr align="left" style="height:40px"><td style="font-weight:bold">Change YTD (Change percent YTD)</td><td id="ytd"></td></tr>
+        <tr align="left" style="height:40px"><td style="font-weight:bold">High Price</td><td id="high" ></td></tr>
+        <tr align="left" style="height:40px"><td style="font-weight:bold">Low Price</td><td id="low" ></td></tr>
+        <tr align="left" style="height:40px"><td style="font-weight:bold">Opening Price</td><td id="opening" ></td></tr>
+                </table>
+                            
+        <img class="col-lg-6 tab-pane fade in active" src="" id="yahoograph" height="100%" width="100%"/>
+                            </div>
+                            
+                <div id="chart" class="tab-pane fade" style="width:100%" align="center">
+    <p>Historical Charts loading...</p>
+  </div>
+                <div id="news" class="tab-pane fade" width="100%">
+                   <!-- <a href="" target=_blank id="newslink"><p id="newstitle"></p></a>
+                        <p id="newscontent"></p>
+                Publisher:<p id="publisher"></p>
+                Date:<p id="newsdate"></p>-->
+  </div>
+                </div>
+                </div> 
+  </div>
+        </div>
+            </div>
+        </div>
+        
+        
+  
+            </div>
+    </div>
+
+    
+   
+    
+</body>
+</html>
