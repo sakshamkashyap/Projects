@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+    <item
+        android:id="@+id/star_btn"
+        android:icon="@drawable/white_fav_star"
+        android:title="bookmark"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/fb_actionbtn"
+        android:icon="@drawable/fb_logo"
+        android:title="fbshare"
+        app:showAsAction="always"/>
+
+</menu>

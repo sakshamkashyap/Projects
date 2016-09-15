@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.webtech.saksham.stocksearch.MainActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Stock Name/Symbol"
+        android:id="@+id/heading_symbol"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Get Quote"
+        android:id="@+id/quote_btn"
+        android:layout_below="@+id/auto_names"
+        android:layout_alignRight="@+id/auto_names"
+        android:layout_alignEnd="@+id/auto_names"
+        android:layout_toEndOf="@+id/heading_symbol"
+        android:layout_toRightOf="@+id/heading_symbol" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Clear"
+        android:id="@+id/clear_btn"
+        android:layout_below="@+id/auto_names"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/quote_btn" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView_test"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/clear_btn" />
+    
+    <AutoCompleteTextView
+        android:id="@+id/auto_names"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/heading_symbol"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <!--<ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/favlist_xml"
+        android:layout_below="@+id/quote_btn"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="37dp"
+        android:choiceMode="none" />-->
+
+    <com.nhaarman.listviewanimations.itemmanipulation.DynamicListView
+        android:id="@+id/dynamiclistview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:choiceMode="none"
+        android:layout_below="@+id/refreshbtn" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Favourites List"
+        android:id="@+id/textView2"
+        android:layout_below="@+id/clear_btn"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/dynamiclistview"
+        android:layout_toStartOf="@+id/quote_btn" />
+
+    <ImageButton
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/refreshbtn"
+        android:background="@null"
+
+        android:layout_below="@+id/quote_btn"
+        android:src="@drawable/refresh"
+        android:layout_alignRight="@+id/textView_test"
+        android:layout_alignEnd="@+id/textView_test" />
+
+    <Switch
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/switch1"
+        android:layout_above="@+id/dynamiclistview"
+        android:layout_toLeftOf="@+id/refreshbtn"
+        android:layout_toStartOf="@+id/refreshbtn" />
+
+
+</RelativeLayout>
